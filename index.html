@@ -1,3 +1,8 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Marina Sangineto Jucá</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
@@ -254,8 +259,58 @@
 
   .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
   .reveal.in{ opacity:1; transform:none; }
-</style>
 
+  /* ---------- mobile ---------- */
+  html, body{ overflow-x:hidden; }
+  @media (max-width:680px){
+    body{ font-size:15px; }
+    .nav-wrap{ padding:12px 18px; }
+    .brand{ font-size:0.95rem; }
+    nav.links.open{ padding:14px 18px; }
+
+    .hero-inner{ padding:52px 18px 44px; }
+    .eyebrow{ font-size:0.7rem; gap:8px; margin-bottom:14px; }
+    h1.name{ margin-bottom:16px; }
+    .lede{ font-size:1rem; margin-bottom:24px; }
+    .tagrow{ margin-bottom:26px; gap:7px; }
+    .tag{ font-size:0.72rem; padding:5px 10px; }
+    .contact-row{ gap:10px; }
+    .contact-row a{ padding:10px 14px; font-size:0.88rem; flex:1 1 auto; justify-content:center; }
+
+    main{ padding:0 18px; }
+    section{ padding:52px 0; }
+    .section-head{ margin-bottom:32px; gap:12px; }
+    h2.section-title{ font-size:1.5rem; }
+    .section-sub{ font-size:0.86rem; }
+
+    .timeline::before{ left:5px; }
+    .t-item{ padding-left:26px; padding-bottom:32px; }
+    .t-item::before{ width:11px; height:11px; }
+    .t-org{ font-size:1.02rem; }
+    .t-date{ font-size:0.75rem; }
+
+    .grid-projects{ grid-template-columns:1fr; gap:16px; }
+    .card{ padding:18px 18px 16px; }
+
+    .exp-item{ padding:16px 0; }
+
+    .skills-grid{ grid-template-columns:1fr 1fr; gap:22px 20px; }
+
+    .lang-interest{ gap:28px; }
+
+    footer{ padding:44px 18px 32px; }
+    footer .contact-row{ flex-direction:column; }
+  }
+  @media (max-width:400px){
+    .skills-grid{ grid-template-columns:1fr; }
+    h1.name{ font-size:2.1rem; }
+    .brand{ font-size:0.82rem; }
+    .nav-tools{ gap:6px; }
+    .toggle button{ padding:3px 7px; }
+  }
+</style>
+</head>
+<body>
 <div class="tracks" aria-hidden="true"><svg viewBox="0 0 1200 700" preserveAspectRatio="none">
   <path d="M -50 80 C 250 40, 500 160, 1250 60" />
   <path d="M -50 620 C 300 660, 650 520, 1250 610" />
@@ -874,3 +929,6 @@
   initEmailButtons();
 })();
 </script>
+
+</body>
+</html>
