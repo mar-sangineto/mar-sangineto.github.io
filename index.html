@@ -86,9 +86,13 @@
   header.site{
     position:sticky; top:0; z-index:50;
     background:color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter:blur(10px);
     backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line);
+    transform:translateY(0);
+    transition:transform .28s ease;
   }
+  header.site.is-hidden{ transform:translateY(-100%); }
   .nav-wrap{
     max-width:1080px; margin:0 auto; padding:14px 28px;
     display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -261,7 +265,9 @@
   .reveal.in{ opacity:1; transform:none; }
 
   /* ---------- mobile ---------- */
-  html, body{ overflow-x:hidden; }
+  /* overflow-x is scoped to content wrappers, not html/body — putting it on
+     body breaks position:sticky on the header in several mobile browsers */
+  main, footer{ overflow-x:hidden; }
   @media (max-width:680px){
     body{ font-size:15px; }
     .nav-wrap{ padding:12px 18px; }
@@ -860,6 +866,40 @@
   document.querySelectorAll("#navLinks a").forEach(function(a){
     a.addEventListener("click", function(){ document.getElementById("navLinks").classList.remove("open"); });
   });
+
+  // ---------- header: hide on scroll-down, reappear on any scroll-up ----------
+  // Keeps the nav one gesture away from anywhere on the page, instead of
+  // requiring a full scroll back to the very top.
+  (function(){
+    var header = document.querySelector("header.site");
+    var lastY = window.scrollY;
+    var ticking = false;
+    var revealZone = 72; // always show header near the very top
+
+    function onScroll(){
+      var y = window.scrollY;
+      var navOpen = document.getElementById("navLinks").classList.contains("open");
+      if (navOpen){
+        // never hide the header while the mobile menu is open
+        header.classList.remove("is-hidden");
+      } else if (y <= revealZone){
+        header.classList.remove("is-hidden");
+      } else if (y > lastY){
+        header.classList.add("is-hidden");
+      } else if (y < lastY){
+        header.classList.remove("is-hidden");
+      }
+      lastY = y;
+      ticking = false;
+    }
+
+    window.addEventListener("scroll", function(){
+      if (!ticking){
+        window.requestAnimationFrame(onScroll);
+        ticking = true;
+      }
+    }, { passive:true });
+  })();
 
   function observeReveals(){
     var items = document.querySelectorAll(".reveal:not(.in)");
