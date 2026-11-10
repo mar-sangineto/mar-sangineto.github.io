@@ -271,8 +271,8 @@
   .case-box b{ display:block; font-weight:600; margin-bottom:4px; font-size:0.95rem; }
   .case-box b .mono{ color:var(--accent); font-weight:500; margin-right:6px; }
   .case-box p{ font-size:0.88rem; margin:0; }
-  .case-steps{ display:flex; align-items:flex-end; gap:8px; }
-  .case-step{ flex:1; border-radius:10px; padding:12px; background:var(--surface-2); border:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft); }
+  .case-steps{ display:flex; align-items:flex-end; gap:8px; margin-bottom:6px; }
+  .case-step{ flex:1; height:var(--h, auto); border-radius:10px; padding:12px; background:var(--surface-2); border:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft); }
   .case-step b{ display:block; color:var(--ink); font-size:0.92rem; margin-bottom:4px; }
   .case-step:last-child{ border-color:var(--accent); background:var(--accent-glow); }
   .case-fig{ margin:4px 0 0; }
@@ -289,6 +289,7 @@
     .case-top h2{ font-size:1.2rem; }
     .case-body{ padding:4px 18px 24px; }
     .case-steps{ flex-direction:column; align-items:stretch; }
+    .case-step{ height:auto; }
     .case-two{ grid-template-columns:1fr; }
   }
 
@@ -1016,7 +1017,7 @@
         var s = el("div","case-steps");
         b.steps.forEach(function(x, i){
           var st = el("div","case-step");
-          st.style.minHeight = (70 + i*18) + "px";
+          st.style.setProperty("--h", (122 + i*26) + "px");
           st.appendChild(el("b", null, t(x.t, lang)));
           st.appendChild(document.createTextNode(t(x.d, lang)));
           s.appendChild(st);
