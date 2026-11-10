@@ -226,6 +226,116 @@
   .chip{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; color:var(--accent); background:var(--accent-glow); padding:3px 9px; border-radius:999px; }
   .card-link{ font-size:0.82rem; color:var(--accent); text-decoration:none; font-weight:500; display:inline-flex; align-items:center; gap:4px; }
   .card-link:hover{ text-decoration:underline; }
+  button.card-link{ background:none; border:none; padding:0; cursor:pointer; font-family:inherit; text-align:left; }
+  .card.featured{ border-color:var(--accent); background:linear-gradient(180deg, var(--accent-glow), var(--surface) 70%); }
+  .card-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); }
+
+  /* inline case-study trigger inside timeline bullets */
+  .case-btn{
+    display:inline-flex; align-items:center; gap:6px; margin-top:8px;
+    font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.03em;
+    color:var(--accent); background:var(--accent-glow); border:1px solid transparent;
+    padding:5px 12px; border-radius:999px; cursor:pointer; transition:border-color .15s;
+  }
+  .case-btn:hover, .case-btn:focus-visible{ border-color:var(--accent); outline:none; }
+
+  /* expandable fronts */
+  .fronts{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:12px; align-items:stretch; grid-auto-flow:dense; }
+  details.front[open]{ grid-column:1 / -1; }
+  details.front:not([open]) summary{ height:100%; }
+  details.front{
+    background:var(--surface); border:1px solid var(--line); border-radius:12px;
+    transition:border-color .15s, box-shadow .15s;
+  }
+  details.front[open]{ border-color:var(--accent); box-shadow:0 10px 24px var(--shadow); }
+  details.front summary{
+    list-style:none; cursor:pointer; padding:16px 18px; display:grid;
+    grid-template-columns:auto 1fr; grid-template-rows:auto 1fr auto; gap:6px 10px; align-items:start;
+  }
+  details.front summary::-webkit-details-marker{ display:none; }
+  details.front summary:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; border-radius:12px; }
+  .front-num{ font-family:'IBM Plex Mono', monospace; color:var(--accent); font-size:0.85rem; padding-top:2px; }
+  .front-title{ font-weight:600; font-size:1.02rem; }
+  .front-short{ grid-column:2; grid-row:2; color:var(--ink-soft); font-size:0.92rem; }
+  .front-toggle{
+    grid-row:3; grid-column:2; justify-self:start; margin-top:6px; font-family:'IBM Plex Mono', monospace; font-size:0.74rem;
+    color:var(--accent); background:var(--accent-glow); border-radius:999px; padding:4px 10px; white-space:nowrap;
+  }
+  .front-toggle .less{ display:none; }
+  details.front[open] .front-toggle .more{ display:none; }
+  details.front[open] .front-toggle .less{ display:inline; }
+  .front-body{ border-top:1px solid var(--line); margin:0 20px; padding:0 0 20px; }
+  .front-body h4{ font-family:'IBM Plex Mono', monospace; text-transform:uppercase; font-size:0.72rem; letter-spacing:0.08em; color:var(--accent); margin:16px 0 6px; }
+  .front-body p{ margin:0; color:var(--ink-soft); font-size:0.94rem; max-width:72ch; }
+
+  .front-hint{ font-family:'IBM Plex Mono', monospace; font-size:0.78rem !important; color:var(--ink-faint) !important; }
+  .front-body .case-list{ margin-top:10px; font-size:0.92rem; }
+  a.card-clickable{ text-decoration:none; color:inherit; cursor:pointer; }
+  .card-kicker{ display:flex; justify-content:space-between; align-items:center; gap:10px; }
+  .card-arrow{ font-family:'IBM Plex Sans', sans-serif; font-size:1.1rem; color:var(--accent); transition:transform .15s; }
+  a.card-clickable:hover .card-arrow{ transform:translateX(4px); }
+  a.card-clickable:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  @media (max-width:680px){
+    details.front summary{ padding:14px; }
+    .front-body{ margin:0 14px; }
+  }
+  /* ---------- case-study dialog ---------- */
+  dialog.case{
+    width:min(900px, calc(100vw - 32px)); max-height:calc(100dvh - 48px);
+    padding:0; border:1px solid var(--line); border-radius:14px;
+    background:var(--bg); color:var(--ink); box-shadow:0 24px 64px var(--shadow);
+  }
+  dialog.case::backdrop{ background:rgba(6,12,16,0.55); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
+  body.dialog-open{ overflow:hidden; }
+  .case-top{
+    position:sticky; top:0; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
+    padding:22px 28px 16px; background:color-mix(in srgb, var(--bg) 92%, transparent);
+    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
+  }
+  .case-top h2{ font-family:'IBM Plex Serif', Georgia, serif; font-weight:600; font-size:1.5rem; line-height:1.2; margin:4px 0 0; text-wrap:balance; }
+  .case-close{
+    flex:none; background:var(--surface); border:1px solid var(--line); color:var(--ink);
+    width:36px; height:36px; border-radius:8px; font-size:1.1rem; cursor:pointer;
+  }
+  .case-close:hover{ border-color:var(--accent); }
+  .case-body{ padding:8px 28px 32px; }
+  .case-body h3{ font-family:'IBM Plex Mono', monospace; text-transform:uppercase; font-size:0.78rem; letter-spacing:0.08em; color:var(--accent); margin:30px 0 12px; }
+  .case-body p{ color:var(--ink-soft); margin:0 0 12px; max-width:72ch; }
+  .case-body p strong{ color:var(--ink); font-weight:600; }
+  .case-stats{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:12px; margin-top:20px; }
+  .case-stat{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .case-stat b{ display:block; font-family:'IBM Plex Serif', Georgia, serif; font-size:1.55rem; color:var(--accent); line-height:1.15; }
+  .case-stat span{ font-size:0.84rem; color:var(--ink-soft); }
+  .case-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:12px; }
+  .case-box{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
+  .case-box b{ display:block; font-weight:600; margin-bottom:4px; font-size:0.95rem; }
+  .case-box b .mono{ color:var(--accent); font-weight:500; margin-right:6px; }
+  .case-box p{ font-size:0.88rem; margin:0; }
+  .case-steps{ display:flex; align-items:flex-end; gap:8px; margin-bottom:6px; }
+  .case-step{ flex:1; height:var(--h, auto); border-radius:10px; padding:12px; background:var(--surface-2); border:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft); }
+  .case-step b{ display:block; color:var(--ink); font-size:0.92rem; margin-bottom:4px; }
+  .case-step:last-child{ border-color:var(--accent); background:var(--accent-glow); }
+  .case-fig{ margin:4px 0 0; }
+  .case-fig img{ width:100%; height:auto; display:block; border-radius:10px; border:1px solid var(--line); background:#1e1e1e; }
+  .case-fig figcaption{ font-size:0.8rem; color:var(--ink-faint); margin-top:8px; }
+  .case-list{ margin:0; padding-left:1.1em; color:var(--ink-soft); max-width:72ch; }
+  .case-list li{ margin-bottom:8px; }
+  .case-list li::marker{ color:var(--accent); }
+  .case-list strong{ color:var(--ink); font-weight:600; }
+  .case-two{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .case-two ul{ margin:0; padding-left:1.1em; color:var(--ink-soft); font-size:0.9rem; }
+  .case-two li{ margin-bottom:6px; }
+  .case-two li::marker{ color:var(--accent); }
+  .case-note{ font-size:0.84rem; color:var(--ink-faint); border-left:2px solid var(--accent); padding-left:12px; margin-top:18px; }
+  .case-body > p + .case-note{ margin-top:8px; }
+  @media (max-width:680px){
+    .case-top{ padding:16px 18px 12px; }
+    .case-top h2{ font-size:1.2rem; }
+    .case-body{ padding:4px 18px 24px; }
+    .case-steps{ flex-direction:column; align-items:stretch; }
+    .case-step{ height:auto; }
+    .case-two{ grid-template-columns:1fr; }
+  }
 
   /* experience list */
   .exp-item{ display:grid; grid-template-columns:180px 1fr; gap:20px; padding:20px 0; border-top:1px solid var(--line); }
@@ -414,6 +524,17 @@
   </section>
 </main>
 
+<dialog class="case" id="caseDialog" aria-labelledby="caseTitle">
+  <div class="case-top">
+    <div>
+      <p class="eyebrow" style="margin:0;" id="caseEyebrow"></p>
+      <h2 id="caseTitle"></h2>
+    </div>
+    <button class="case-close" id="caseClose" type="button">✕</button>
+  </div>
+  <div class="case-body" id="caseBody"></div>
+</dialog>
+
 <footer id="contact">
   <p class="eyebrow" style="justify-content:center;" data-i18n="footer.cta"></p>
   <div class="contact-row">
@@ -516,7 +637,7 @@
       date:{en:"Since Oct. 2024", pt:"Desde Out. 2024"},
       loc:{en:"Paris, France", pt:"Paris, França"},
       bullets:[
-        {en:"Fast-simulation tool using advanced Deep Learning and Generative AI for Beyond-the-Standard-Model Physics; the generative model reached adversarial equilibrium with the discriminator (AUC ≈ 0.5), producing synthetic samples nearly indistinguishable from real data.", pt:"Ferramenta de simulação rápida com Deep Learning avançado e IA generativa para pesquisa em Física Além do Modelo Padrão; o modelo gerador atingiu equilíbrio adversarial com o discriminador (AUC ≈ 0.5), indicando amostras sintéticas praticamente indistinguíveis das reais."},
+        {en:"Fast-simulation tool using advanced Deep Learning and Generative AI (CaloDREAM++, a flow-matching Vision Transformer) for Beyond-the-Standard-Model Physics; in the classifier test the energy model reached AUC ≈ 0.5 in every configuration, meaning generated showers are nearly indistinguishable from full simulation.", pt:"Ferramenta de simulação rápida com Deep Learning avançado e IA generativa (CaloDREAM++, um Vision Transformer de flow matching) para pesquisa em Física Além do Modelo Padrão; no teste com classificador, o modelo de energia atingiu AUC ≈ 0.5 em todas as configurações, ou seja, chuveiros gerados praticamente indistinguíveis da simulação completa."},
         {en:"Built data tooling (root2h5), HTCondor cluster job-management scripts (HTCondorScripts), and adapted a Vision Transformer for High-Energy Physics (vit4hep).", pt:"Ferramentas de manipulação e conversão de dados (root2h5), scripts de gestão de jobs em cluster HTCondor (HTCondorScripts), e adaptação de um Vision Transformer para Física de Altas Energias (vit4hep)."},
         {en:"In the project's final month, developed custom AI-agent methodology (Claude) to automate job management and the development workflow.", pt:"No último mês do projeto, metodologia com agentes de IA customizados (Claude) para automação da gestão de jobs e do fluxo de desenvolvimento."}
       ]
@@ -571,6 +692,14 @@
   ];
 
   var PROJECTS = [
+    {
+      featured:true,
+      caseStudy:true,
+      title:{en:"Agent-Assisted Research Workflow", pt:"Fluxo de Pesquisa com Agentes de IA"},
+      date:{en:"Aug. 2026", pt:"Ago. 2026"},
+      tags:["Claude Code","Multi-agent","Python","HTCondor"],
+      desc:{en:"How I explored AI agents inside a CERN/ATLAS fast-simulation project: job allocation, contingency-planned test campaigns, large-codebase debugging, new tooling and a structured notes vault as project memory.", pt:"Como explorei agentes de IA dentro de um projeto de simulação rápida do CERN/ATLAS: alocação de jobs, campanhas de testes com planos de contingência, depuração em código grande, novas ferramentas e um vault de notas estruturado como memória do projeto."}
+    },
     {
       title:"Oh-A-DINO — Object-Centric Self-Supervised Representations",
       date:{en:"2025–2026", pt:"2025–2026"},
@@ -670,6 +799,7 @@
     {title:{en:"CAD & Simulation", pt:"CAD & Simulação"}, items:["MATLAB","Simulink","KiCad","Altium","SPICE"]},
     {title:{en:"Cybersecurity", pt:"Cibersegurança"}, items:["Buffer Overflow","ROP","GDB","pwntools"]},
     {title:{en:"Design", pt:"Design"}, items:["Figma","Blender"]},
+    {title:{en:"AI Agents & Tooling", pt:"Agentes de IA & Ferramentas"}, items:["Claude Code","Multi-agent orchestration","Context engineering","HTCondor","Obsidian"]},
     {title:{en:"Other", pt:"Outros"}, items:["Error-Correcting Codes","Quantum Computing (theory)","Git"]}
   ];
 
@@ -693,6 +823,66 @@
     {name:{en:"Violin", pt:"Violino"}, detail:{en:"First-chair violinist, GPA Institute Orchestra", pt:"Primeira violinista, Orquestra do Instituto GPA"}},
     {name:{en:"Photography", pt:"Fotografia"}, detail:{en:"Awarded in contest", pt:"Premiada em concurso"}}
   ];
+
+  // ---------- case study: agent-assisted research workflow ----------
+  var CASE = {
+    eyebrow:{en:"Case study · LPNHE / ATLAS – CERN", pt:"Estudo de caso · LPNHE / ATLAS – CERN"},
+    title:{en:"Exploring AI agents in ML research", pt:"Explorando agentes de IA em pesquisa de ML"},
+    blocks:[
+      {h:{en:"Context", pt:"Contexto"}, p:[
+        {en:"Comparing theory with LHC data requires millions of simulated events, and the detector-simulation stages are the most expensive part of that chain. My internship trained a generative model (<strong>CaloDREAM++</strong>, a flow-matching Vision Transformer) as a fast-simulation replacement inside <strong>Lorenzetti</strong>, an open calorimeter-simulation framework. That meant dozens of ML experiments running in parallel on a shared GPU cluster.", pt:"Comparar teoria com os dados do LHC exige milhões de eventos simulados, e as etapas de simulação do detector são a parte mais cara dessa cadeia. No estágio, treinei um modelo generativo (<strong>CaloDREAM++</strong>, um Vision Transformer de flow matching) como simulação rápida dentro do <strong>Lorenzetti</strong>, um framework aberto de simulação de calorímetros. Isso significava dezenas de experimentos de ML rodando em paralelo num cluster de GPUs compartilhado."}
+      ]},
+      {h:{en:"Where agents were explored", pt:"Onde explorei agentes"}, p:[
+        {en:"In the final month of the internship I ran an exercise: exploring how AI agents could optimize the research workflow itself. I applied them where the work was repetitive, well specified and verifiable: <strong>allocating jobs</strong> on the cluster (which could take 2 to 3 days per job, often on worse machines), <strong>fixing and refactoring a large codebase</strong>, and <strong>drafting new code</strong> to review instead of starting from scratch.", pt:"No último mês do estágio fiz um exercício: explorar como agentes de IA podiam otimizar o próprio fluxo de pesquisa. Apliquei agentes onde o trabalho era repetitivo, bem especificado e verificável: <strong>alocação de jobs</strong> no cluster (que podia levar 2 a 3 dias por job, muitas vezes em máquinas piores), <strong>correção e refatoração de um código grande</strong> e <strong>primeiras versões de código novo</strong> para revisar em vez de partir do zero."}
+      ]},
+      {h:{en:"What the agents did", pt:"O que os agentes fizeram"}, hint:{en:"Click each card to see how it worked in practice.", pt:"Clique em cada card para ver como funcionou na prática."}, fronts:[
+          {t:{en:"Job submission & allocation", pt:"Submissão e alocação"},
+           s:{en:"Placing the heaviest tests on the best GPUs, including overnight, and watching them run.", pt:"Alocar os testes mais pesados nas melhores GPUs, inclusive de madrugada, e acompanhar a execução."},
+           how:{en:"Every experiment on the CERN batch system is a submit file plus a script. The agent checked which machines were free, adapted my submission settings to the hardware each run needed and checked for duplicate jobs before submitting. After submission it kept monitoring the allocated machine: when a job failed or was held, it notified me and resubmitted it.", pt:"Cada experimento no sistema de batch do CERN é um arquivo de submissão mais um script. O agente verificava quais máquinas estavam livres, adaptava minhas configurações de submissão ao hardware que cada execução precisava e conferia se não havia jobs duplicados antes de submeter. Depois da submissão, continuava acompanhando a máquina alocada: quando um job falhava ou ficava retido, ele me notificava e já ressubmetia."},
+           role:{en:"I defined the submission conventions and checked that runs were going well and submissions were correct, but without having to watch them constantly. The amount of hands-on attention job submission needed from me dropped considerably.", pt:"Eu defini as convenções de submissão e verificava se tudo estava indo bem e se as submissões estavam corretas, mas sem precisar acompanhar constantemente. A atenção que a submissão de jobs exigia de mim caiu bastante."}},
+          {t:{en:"Contingency-planned tests", pt:"Testes com contingência"},
+           s:{en:"Test campaigns with a pre-defined next step for each outcome.", pt:"Campanhas de teste com o próximo passo definido para cada resultado."},
+           how:{en:"Before a campaign, I wrote down the hypotheses for what could go wrong and what to do in each case (“if X, do Y”). The agent submitted the variants, read the results as they arrived and followed the matching branch of the plan, calling me when an outcome fell outside it.", pt:"Antes de cada campanha, eu escrevia as hipóteses do que poderia dar errado e o que fazer em cada caso (“se X, faça Y”). O agente submetia as variantes, lia os resultados conforme chegavam e seguia o ramo correspondente do plano, me chamando quando um resultado fugia dele."},
+           role:{en:"The hypotheses and the decision tree were mine; the agent executed and reported.", pt:"As hipóteses e a árvore de decisão eram minhas; o agente executava e reportava."}},
+          {t:{en:"Large-codebase debugging", pt:"Depuração em código grande"},
+           s:{en:"Searching a large codebase for errors, guided by my diagnosis.", pt:"Busca de erros num código grande, guiada pelo meu diagnóstico."},
+           how:{en:"The agent searched the codebase for errors: hardcoded values, wrong references and suspicious logic spread across many files. Each fix went on its own branch and was validated before merging.", pt:"O agente buscava erros pela base: valores fixos, referências erradas e lógica suspeita espalhados por vários arquivos. Cada correção ia para uma branch própria e era validada antes do merge."},
+           role:{en:"Most of the work was mine: identifying symptoms, reasoning about what could be wrong, explaining it to the agent and directing how to fix it.", pt:"Grande parte do trabalho era meu: identificar os sintomas, pensar no que poderia estar errado, explicar ao agente e direcionar como corrigir."}},
+          {t:{en:"New additional software", pt:"Novos softwares adicionais"},
+           s:{en:"Creating new software alongside the main project.", pt:"Criação de novos softwares em paralelo ao projeto principal."},
+           how:{en:"For each new piece of software I described the goal and the constraints, the agent produced a first structure, and I reviewed and iterated on it. This let side tools move forward in parallel without slowing the main project: a simulation-status monitor, an energy-spectrum sampler (distributions closer to the physics) and the fast-simulation integration itself.", pt:"Para cada software novo, eu descrevia o objetivo e as restrições, o agente produzia uma primeira estrutura e eu revisava e iterava. Isso permitiu avançar ferramentas paralelas sem atrasar o projeto principal: um monitor de status da simulação, um gerador de espectros de energia (distribuições mais próximas da física) e a própria integração da simulação rápida."},
+           role:{en:"I specified each tool and reviewed the code before it was used.", pt:"Eu especifiquei cada ferramenta e revisei o código antes do uso."}},
+          {t:{en:"Structured notes", pt:"Notas estruturadas"},
+           s:{en:"An Obsidian vault as the project's memory.", pt:"Um vault no Obsidian como memória do projeto."},
+           how:{en:"At the end of each task the agent recorded what it did in a format I defined. The notes worked as a development backlog, as context for every new agent session and as my own reference.", pt:"Ao fim de cada tarefa, o agente registrava o que fez num formato que eu defini. As notas serviam como backlog do desenvolvimento, contexto para cada nova sessão de agente e consulta própria."},
+           list:[
+             {en:"<strong>Agent log:</strong> one note per session with goal, actions, results, decisions and next steps", pt:"<strong>Log dos agentes:</strong> uma nota por sessão com objetivo, ações, resultados, decisões e próximos passos"},
+             {en:"<strong>Projects:</strong> current state of each track, updated in place", pt:"<strong>Projetos:</strong> estado atual de cada frente, atualizado no lugar"},
+             {en:"<strong>Diagnostics:</strong> full investigations with root cause and evidence", pt:"<strong>Diagnósticos:</strong> investigações completas com causa e evidências"},
+             {en:"<strong>Bug registry:</strong> symptom → root cause → fix → validation", pt:"<strong>Registro de bugs:</strong> sintoma → causa → correção → validação"},
+             {en:"<strong>Working agreements:</strong> rules the agent read before acting", pt:"<strong>Acordos de trabalho:</strong> regras que o agente lia antes de agir"}
+           ],
+           role:{en:"I designed the structure and templates; the vault reached 85 notes and 22 registered bugs.", pt:"Eu desenhei a estrutura e os templates; o vault chegou a 85 notas e 22 bugs registrados."}},
+          {t:{en:"Parallel workstreams", pt:"Frentes em paralelo"},
+           s:{en:"Several agents, then coordinators supervising groups of agents.", pt:"Vários agentes, depois coordenadores supervisionando grupos de agentes."},
+           how:{en:"Independent tracks each had their own agent. Later, a coordinator agent ran daily check-ins across tracks, read the notes, decided routine next steps and flagged to me anything that needed a real decision.", pt:"Cada frente independente tinha seu próprio agente. Depois, um agente coordenador fazia checagens diárias entre as frentes, lia as notas, decidia os próximos passos de rotina e me sinalizava o que precisava de uma decisão de verdade."},
+           role:{en:"I split the work into tracks that did not depend on each other and set what the coordinator could decide alone.", pt:"Eu dividi o trabalho em frentes que não dependiam umas das outras e defini o que o coordenador podia decidir sozinho."}}
+        ]},
+      {h:{en:"How my use evolved", pt:"Como meu uso evoluiu"}, steps:[
+        {t:"Manual", d:{en:"Approved each edit to learn how the agent behaved", pt:"Aprovava cada alteração para entender o agente"}},
+        {t:"Plan", d:{en:"Reviewed the plan before execution", pt:"Revisava o plano antes de executar"}},
+        {t:"Auto", d:{en:"Agent ran alone and called me at defined checkpoints", pt:"Agente seguia sozinho e me chamava em pontos definidos"}},
+        {t:{en:"Multi-agent", pt:"Multi-agentes"}, d:{en:"Parallel agents on independent tracks", pt:"Agentes em paralelo em frentes independentes"}},
+        {t:{en:"Hierarchy", pt:"Hierarquia"}, d:{en:"Agents coordinating groups of agents", pt:"Agentes coordenando grupos de agentes"}}
+      ]},
+      {h:{en:"Results", pt:"Resultados"}, stats:[
+        {b:"AUC ≈ 0.50", s:{en:"energy model, every configuration up to 1 TeV and full detector (0.5 = indistinguishable from full simulation)", pt:"modelo de energia, todas as configurações até 1 TeV e detector completo (0,5 = indistinguível da simulação completa)"}},
+        {b:{en:"< 1 day", pt:"< 1 dia"}, s:{en:"to land the right GPU, down from 2 to 3 days", pt:"para conseguir a GPU certa, antes 2 a 3 dias"}},
+        {b:"3", s:{en:"new tools shipped alongside the main project", pt:"novas ferramentas entregues junto ao projeto principal"}},
+        {b:"22", s:{en:"bugs registered and tracked to root cause", pt:"bugs registrados e rastreados até a causa"}}
+      ]}
+    ]
+  };
 
   // ---------- helpers ----------
   function t(field, lang){
@@ -752,6 +942,12 @@
         item.bullets.forEach(function(b){ ul.appendChild(el("li",null, t(b, state.lang))); });
         node.appendChild(ul);
       }
+      if (item.caseStudy){
+        var cb = el("button","case-btn", state.lang === "pt" ? "Ver estudo de caso: agentes de IA →" : "Read the AI-agents case study →");
+        cb.type = "button";
+        cb.addEventListener("click", openCase);
+        node.appendChild(cb);
+      }
       wrap.appendChild(node);
     });
   }
@@ -760,7 +956,13 @@
     var wrap = document.getElementById("projectsGrid");
     wrap.innerHTML = "";
     PROJECTS.forEach(function(p){
-      var card = el("article","card reveal");
+      var card = el(p.caseStudy ? "a" : "article","card reveal" + (p.featured ? " featured" : ""));
+      if (p.caseStudy){
+        card.href = "#case-agents"; card.classList.add("card-clickable");
+        card.setAttribute("aria-haspopup","dialog");
+        card.addEventListener("click", function(e){ e.preventDefault(); openCase(); });
+      }
+      if (p.featured) card.appendChild(el("div","card-kicker", (state.lang === "pt" ? "Estudo de caso · clique para abrir" : "Case study · click to open") + '<span class="card-arrow" aria-hidden="true">→</span>'));
       var head = el("div","card-head");
       head.appendChild(el("div","card-title", t(p.title, state.lang)));
       head.appendChild(el("div","card-date mono", t(p.date, state.lang)));
@@ -769,10 +971,12 @@
       var tags = el("div","card-tags");
       (p.tags||[]).forEach(function(tag){ tags.appendChild(el("span","chip", tag)); });
       card.appendChild(tags);
-      var link = el("a","card-link", (state.lang === "pt" ? "Ver no GitHub →" : "View on GitHub →"));
-      link.href = "https://github.com/mar-sangineto";
-      link.target = "_blank"; link.rel = "noopener";
-      card.appendChild(link);
+      if (!p.caseStudy){
+        var link = el("a","card-link", (state.lang === "pt" ? "Ver no GitHub →" : "View on GitHub →"));
+        link.href = "https://github.com/mar-sangineto";
+        link.target = "_blank"; link.rel = "noopener";
+        card.appendChild(link);
+      }
       wrap.appendChild(card);
     });
   }
@@ -840,6 +1044,128 @@
     });
   }
 
+  function renderCase(){
+    var lang = state.lang;
+    document.getElementById("caseEyebrow").textContent = t(CASE.eyebrow, lang);
+    document.getElementById("caseTitle").textContent = t(CASE.title, lang);
+    document.getElementById("caseClose").setAttribute("aria-label", lang === "pt" ? "Fechar" : "Close");
+    var body = document.getElementById("caseBody");
+    body.innerHTML = "";
+    CASE.blocks.forEach(function(b){
+      body.appendChild(el("h3", null, t(b.h, lang)));
+      (b.p||[]).forEach(function(par){ body.appendChild(el("p", null, t(par, lang))); });
+      if (b.list){
+        var ul = el("ul","case-list");
+        b.list.forEach(function(li){ ul.appendChild(el("li", null, t(li, lang))); });
+        body.appendChild(ul);
+      }
+      if (b.hint) body.appendChild(el("p","front-hint", t(b.hint, lang)));
+      if (b.fronts){
+        var fw = el("div","fronts");
+        var L = lang === "pt" ? {more:"Detalhes +", less:"Fechar −", how:"Como funcionou", ex:"Exemplo", role:"Meu papel"} : {more:"Details +", less:"Close −", how:"How it worked", ex:"Example", role:"My role"};
+        b.fronts.forEach(function(f, i){
+          var d = el("details","front");
+          var sum = el("summary");
+          sum.appendChild(el("span","front-num mono", "0" + (i+1)));
+          sum.appendChild(el("span","front-title", t(f.t, lang)));
+          sum.appendChild(el("span","front-toggle", '<span class="more">'+L.more+'</span><span class="less">'+L.less+'</span>'));
+          sum.appendChild(el("span","front-short", t(f.s, lang)));
+          d.appendChild(sum);
+          var fb = el("div","front-body");
+          fb.appendChild(el("h4", null, L.how));
+          fb.appendChild(el("p", null, t(f.how, lang)));
+          if (f.list){
+            var ful = el("ul","case-list");
+            f.list.forEach(function(li){ ful.appendChild(el("li", null, t(li, lang))); });
+            fb.appendChild(ful);
+          }
+          if (f.ex){ fb.appendChild(el("h4", null, L.ex)); fb.appendChild(el("p", null, t(f.ex, lang))); }
+          if (f.role){ fb.appendChild(el("h4", null, L.role)); fb.appendChild(el("p", null, t(f.role, lang))); }
+          d.appendChild(fb);
+          fw.appendChild(d);
+        });
+        body.appendChild(fw);
+      }
+      if (b.grid){
+        var g = el("div","case-grid");
+        b.grid.forEach(function(x, i){
+          var box = el("div","case-box");
+          box.appendChild(el("b", null, '<span class="mono">0'+(i+1)+'</span>' + t(x.t, lang)));
+          box.appendChild(el("p", null, t(x.d, lang)));
+          g.appendChild(box);
+        });
+        body.appendChild(g);
+      }
+      if (b.steps){
+        var s = el("div","case-steps");
+        b.steps.forEach(function(x, i){
+          var st = el("div","case-step");
+          st.style.setProperty("--h", (122 + i*26) + "px");
+          st.appendChild(el("b", null, t(x.t, lang)));
+          st.appendChild(document.createTextNode(t(x.d, lang)));
+          s.appendChild(st);
+        });
+        body.appendChild(s);
+      }
+      if (b.fig){
+        var fig = el("figure","case-fig");
+        var img = document.createElement("img");
+        img.src = b.fig.src; img.alt = t(b.fig.alt, lang); img.loading = "lazy";
+        img.width = 1400; img.height = 830;
+        fig.appendChild(img);
+        fig.appendChild(el("figcaption", null, t(b.fig.cap, lang)));
+        body.appendChild(fig);
+      }
+      if (b.stats){
+        var sg = el("div","case-stats");
+        b.stats.forEach(function(x){
+          var c = el("div","case-stat");
+          c.appendChild(el("b", null, t(x.b, lang)));
+          c.appendChild(el("span", null, t(x.s, lang)));
+          sg.appendChild(c);
+        });
+        body.appendChild(sg);
+      }
+      if (b.two){
+        var tw = el("div","case-two");
+        b.two.forEach(function(col){
+          var box = el("div","case-box");
+          box.appendChild(el("b", null, t(col.t, lang)));
+          var ul = el("ul");
+          col.li.forEach(function(li){ ul.appendChild(el("li", null, t(li, lang))); });
+          box.appendChild(ul);
+          tw.appendChild(box);
+        });
+        body.appendChild(tw);
+      }
+      if (b.after) body.appendChild(el("p","case-note", t(b.after, lang)));
+    });
+  }
+
+  var caseDialog = document.getElementById("caseDialog");
+  function openCase(){
+    renderCase();
+    if (typeof caseDialog.showModal === "function") caseDialog.showModal();
+    else caseDialog.setAttribute("open", "");
+    document.body.classList.add("dialog-open");
+    caseDialog.scrollTop = 0;
+    try { history.replaceState(null, "", "#case-agents"); } catch(e){}
+  }
+  function closeCase(){
+    if (caseDialog.open){
+      if (typeof caseDialog.close === "function") caseDialog.close();
+      else caseDialog.removeAttribute("open");
+    }
+  }
+  caseDialog.addEventListener("close", function(){
+    document.body.classList.remove("dialog-open");
+    if (location.hash === "#case-agents"){
+      try { history.replaceState(null, "", location.pathname + location.search); } catch(e){}
+    }
+  });
+  document.getElementById("caseClose").addEventListener("click", closeCase);
+  caseDialog.addEventListener("click", function(e){ if (e.target === caseDialog) closeCase(); });
+
   function renderAll(){
     applyStaticI18n();
     renderTags();
@@ -849,6 +1175,7 @@
     renderExperience();
     renderSkills();
     renderAwards();
+    if (caseDialog.open) renderCase();
     observeReveals();
   }
 
@@ -967,6 +1294,7 @@
 
   renderAll();
   initEmailButtons();
+  if (location.hash === "#case-agents") openCase();
 })();
 </script>
 
