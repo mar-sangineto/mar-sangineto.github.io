@@ -278,6 +278,10 @@
   .case-fig{ margin:4px 0 0; }
   .case-fig img{ width:100%; height:auto; display:block; border-radius:10px; border:1px solid var(--line); background:#1e1e1e; }
   .case-fig figcaption{ font-size:0.8rem; color:var(--ink-faint); margin-top:8px; }
+  .case-list{ margin:0; padding-left:1.1em; color:var(--ink-soft); max-width:72ch; }
+  .case-list li{ margin-bottom:8px; }
+  .case-list li::marker{ color:var(--accent); }
+  .case-list strong{ color:var(--ink); font-weight:600; }
   .case-two{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
   .case-two ul{ margin:0; padding-left:1.1em; color:var(--ink-soft); font-size:0.9rem; }
   .case-two li{ margin-bottom:6px; }
@@ -789,16 +793,16 @@
       {h:{en:"Context", pt:"Contexto"}, p:[
         {en:"Comparing theory with LHC data requires millions of simulated events, and the detector-simulation stages are the most expensive part of that chain. My internship trained a generative model (<strong>CaloDREAM++</strong>, a flow-matching Vision Transformer) as a fast-simulation replacement inside <strong>Lorenzetti</strong>, an open calorimeter-simulation framework. That meant dozens of ML experiments running in parallel on a shared GPU cluster.", pt:"Comparar teoria com os dados do LHC exige milhões de eventos simulados, e as etapas de simulação do detector são a parte mais cara dessa cadeia. No estágio, treinei um modelo generativo (<strong>CaloDREAM++</strong>, um Vision Transformer de flow matching) como simulação rápida dentro do <strong>Lorenzetti</strong>, um framework aberto de simulação de calorímetros. Isso significava dezenas de experimentos de ML rodando em paralelo num cluster de GPUs compartilhado."}
       ]},
-      {h:{en:"The problem", pt:"O problema"}, p:[
-        {en:"Three repetitive tasks were eating research time: <strong>allocating jobs</strong> (2–3 days of queueing per job, often settling for worse machines), <strong>fixing a large codebase</strong> (e.g. tracking one hardcoded value across many files) and <strong>writing new code from scratch</strong>. They were mechanical, well specified and verifiable — a good fit for agents.", pt:"Três tarefas repetitivas consumiam tempo de pesquisa: <strong>alocar jobs</strong> (2 a 3 dias de fila por job, muitas vezes aceitando máquinas piores), <strong>corrigir um código grande</strong> (por exemplo, rastrear um valor fixo espalhado por vários arquivos) e <strong>escrever código novo do zero</strong>. Eram tarefas mecânicas, bem especificadas e verificáveis — um bom encaixe para agentes."}
+      {h:{en:"Where agents were explored", pt:"Onde explorei agentes"}, p:[
+        {en:"In the final month of the internship I ran an exercise: exploring how AI agents could optimize the research workflow itself. I applied them where the work was repetitive, well specified and verifiable: <strong>allocating jobs</strong> on the cluster (which could take 2 to 3 days per job, often on worse machines), <strong>fixing and refactoring a large codebase</strong>, and <strong>drafting new code</strong> to review instead of starting from scratch.", pt:"No último mês do estágio fiz um exercício: explorar como agentes de IA podiam otimizar o próprio fluxo de pesquisa. Apliquei agentes onde o trabalho era repetitivo, bem especificado e verificável: <strong>alocação de jobs</strong> no cluster (que podia levar 2 a 3 dias por job, muitas vezes em máquinas piores), <strong>correção e refatoração de um código grande</strong> e <strong>primeiras versões de código novo</strong> para revisar em vez de partir do zero."}
       ]},
       {h:{en:"What the agents did", pt:"O que os agentes fizeram"}, grid:[
         {t:{en:"Job submission & allocation", pt:"Submissão e alocação"}, d:{en:"Watched free machines and placed the heaviest tests on the best GPUs, including overnight, following my submission conventions.", pt:"Monitoravam máquinas livres e alocavam os testes mais pesados nas melhores GPUs, inclusive de madrugada, seguindo minhas convenções de submissão."}},
         {t:{en:"Contingency-planned tests", pt:"Testes com contingência"}, d:{en:"I wrote the failure hypotheses and what to do in each case (“if X, do Y”); agents launched the test campaigns and followed the plan per outcome.", pt:"Eu escrevia as hipóteses de falha e o que fazer em cada caso (“se X, faça Y”); os agentes lançavam as campanhas de teste e seguiam o plano conforme o resultado."}},
-        {t:{en:"Large-codebase debugging", pt:"Depuração em código grande"}, d:{en:"Searching for hardcoded values, wrong references and suspicious logic across the codebase — every fix on its own branch, validated before merging.", pt:"Busca de valores fixos, referências erradas e lógica suspeita pela base — cada correção em sua própria branch, validada antes do merge."}},
+        {t:{en:"Large-codebase debugging", pt:"Depuração em código grande"}, d:{en:"Searching for hardcoded values, wrong references and suspicious logic across the codebase. Every fix on its own branch, validated before merging.", pt:"Busca de valores fixos, referências erradas e lógica suspeita pela base. Cada correção em sua própria branch, validada antes do merge."}},
         {t:{en:"New tooling", pt:"Novas ferramentas"}, d:{en:"Reviewable first drafts instead of blank files: a simulation-status monitor, an energy-spectrum sampler and the fast-simulation integration.", pt:"Primeiras versões para revisar em vez de arquivos em branco: um monitor de status da simulação, um gerador de espectros de energia e a integração da simulação rápida."}},
         {t:{en:"Structured notes", pt:"Notas estruturadas"}, d:{en:"Every session and submission recorded automatically in a format I defined (see project memory below).", pt:"Cada sessão e submissão registrada automaticamente num formato que eu defini (veja a memória do projeto abaixo)."}},
-        {t:{en:"Parallel workstreams", pt:"Frentes em paralelo"}, d:{en:"Several agents on independent tracks, later coordinator agents supervising groups of agents — without slowing the main project.", pt:"Vários agentes em frentes independentes, depois agentes coordenadores supervisionando grupos de agentes — sem atrasar o projeto principal."}}
+        {t:{en:"Parallel workstreams", pt:"Frentes em paralelo"}, d:{en:"Several agents on independent tracks, later coordinator agents supervising groups of agents, without slowing the main project.", pt:"Vários agentes em frentes independentes, depois agentes coordenadores supervisionando grupos de agentes, sem atrasar o projeto principal."}}
       ]},
       {h:{en:"How my use evolved", pt:"Como meu uso evoluiu"}, steps:[
         {t:"Manual", d:{en:"Approved each edit to learn how the agent behaved", pt:"Aprovava cada alteração para entender o agente"}},
@@ -806,30 +810,23 @@
         {t:"Auto", d:{en:"Agent ran alone and called me at defined checkpoints", pt:"Agente seguia sozinho e me chamava em pontos definidos"}},
         {t:{en:"Multi-agent", pt:"Multi-agentes"}, d:{en:"Parallel agents on independent tracks", pt:"Agentes em paralelo em frentes independentes"}},
         {t:{en:"Hierarchy", pt:"Hierarquia"}, d:{en:"Agents coordinating groups of agents", pt:"Agentes coordenando grupos de agentes"}}
-      ], after:{en:"Autonomy grew only as trust was earned — complexity was added when it proved useful, not by default.", pt:"A autonomia cresceu conforme a confiança — a complexidade foi adicionada quando se mostrou útil, não por padrão."}},
+      ]},
       {h:{en:"Project memory", pt:"Memória do projeto"}, p:[
-        {en:"Agents wrote to an Obsidian vault I structured: a <strong>log</strong> per session (goal, actions, results, decisions, next steps), <strong>project</strong> notes with the current state of each track, full <strong>diagnostics</strong>, a standardized <strong>bug registry</strong> (symptom → root cause → fix → validation) and <strong>working agreements</strong> the agent read before acting. It served as development backlog, as context for each new agent session, and as my own reference.", pt:"Os agentes escreviam num vault do Obsidian que eu estruturei: um <strong>log</strong> por sessão (objetivo, ações, resultados, decisões, próximos passos), notas de <strong>projeto</strong> com o estado atual de cada frente, <strong>diagnósticos</strong> completos, um <strong>registro de bugs</strong> padronizado (sintoma → causa → correção → validação) e <strong>acordos de trabalho</strong> que o agente lia antes de agir. Servia como backlog do desenvolvimento, contexto para cada nova sessão de agente e consulta própria."}
-      ], fig:{src:"assets/agent-notes-graph.webp", alt:{en:"Obsidian graph view of the project notes vault", pt:"Visão em grafo do vault de notas do projeto no Obsidian"}, cap:{en:"Graph view of the vault: 85 notes, 22 registered bugs, one note per agent session.", pt:"Visão em grafo do vault: 85 notas, 22 bugs registrados, uma nota por sessão de agente."}}},
+        {en:"Agents wrote to an Obsidian vault structured by me (85 notes, 22 registered bugs):", pt:"Os agentes escreviam num vault do Obsidian estruturado por mim (85 notas, 22 bugs registrados):"}
+      ], list:[
+        {en:"<strong>Agent log:</strong> one note per session with goal, actions, results, decisions and next steps", pt:"<strong>Log dos agentes:</strong> uma nota por sessão com objetivo, ações, resultados, decisões e próximos passos"},
+        {en:"<strong>Projects:</strong> current state of each track, updated in place", pt:"<strong>Projetos:</strong> estado atual de cada frente, atualizado no lugar"},
+        {en:"<strong>Diagnostics:</strong> full investigations with root cause and evidence", pt:"<strong>Diagnósticos:</strong> investigações completas com causa e evidências"},
+        {en:"<strong>Bug registry:</strong> symptom → root cause → fix → validation", pt:"<strong>Registro de bugs:</strong> sintoma → causa → correção → validação"},
+        {en:"<strong>Working agreements:</strong> rules the agent read before acting", pt:"<strong>Acordos de trabalho:</strong> regras que o agente lia antes de agir"},
+        {en:"<strong>Purpose:</strong> development backlog, context for each new agent session and my own reference", pt:"<strong>Finalidade:</strong> backlog do desenvolvimento, contexto para cada nova sessão de agente e consulta própria"}
+      ]},
       {h:{en:"Results", pt:"Resultados"}, stats:[
         {b:"AUC ≈ 0.50", s:{en:"energy model, every configuration up to 1 TeV and full detector (0.5 = indistinguishable from full simulation)", pt:"modelo de energia, todas as configurações até 1 TeV e detector completo (0,5 = indistinguível da simulação completa)"}},
-        {b:{en:"< 1 day", pt:"< 1 dia"}, s:{en:"to land the right GPU, down from 2–3 days", pt:"para conseguir a GPU certa, antes 2 a 3 dias"}},
+        {b:{en:"< 1 day", pt:"< 1 dia"}, s:{en:"to land the right GPU, down from 2 to 3 days", pt:"para conseguir a GPU certa, antes 2 a 3 dias"}},
         {b:"3", s:{en:"new tools shipped alongside the main project", pt:"novas ferramentas entregues junto ao projeto principal"}},
         {b:"22", s:{en:"bugs registered and tracked to root cause", pt:"bugs registrados e rastreados até a causa"}}
-      ], after:{en:"The modeling choices and conclusions were mine; agents accelerated the final stretch — bug hunting and extending the result to new energy ranges and the full detector.", pt:"As escolhas de modelagem e as conclusões foram minhas; os agentes aceleraram a reta final — caça de bugs e extensão do resultado a novas faixas de energia e ao detector completo."}},
-      {h:{en:"Lessons", pt:"Aprendizados"}, two:[
-        {t:{en:"Worked well", pt:"Funcionou"}, li:[
-          {en:"Test campaigns with pre-defined contingency plans", pt:"Campanhas de teste com planos de contingência definidos antes"},
-          {en:"Explore → plan → implement, with branch-per-fix validation", pt:"Explorar → planejar → implementar, com validação por branch"},
-          {en:"Fresh sessions and curated context to avoid biasing the agent", pt:"Sessões novas e contexto selecionado para não enviesar o agente"},
-          {en:"Persistent notes as memory between sessions", pt:"Notas persistentes como memória entre sessões"}
-        ]},
-        {t:{en:"Fell short", pt:"Não funcionou"}, li:[
-          {en:"Visual analysis: issues obvious in a plot went unnoticed", pt:"Análise visual: problemas óbvios num gráfico passavam despercebidos"},
-          {en:"Specialist physics knowledge (web search helped only sometimes)", pt:"Conhecimento especializado de física (a busca na web ajudou só às vezes)"},
-          {en:"Local optima: five plausible shape-model fixes in a row, none effective", pt:"Ótimos locais: cinco correções plausíveis seguidas no modelo de forma, nenhuma eficaz"},
-          {en:"Free-running auto-fixing without checkpoints — the human stays in the loop", pt:"Correção autônoma sem pontos de controle — a pessoa continua no ciclo"}
-        ]}
-      ], after:{en:"Next time: reusable skills from day one (to keep notes concise) and reviewing agent-written notes before they become context.", pt:"Da próxima vez: skills reutilizáveis desde o início (para notas mais concisas) e revisar as notas escritas pelo agente antes de virarem contexto."}}
+      ]}
     ]
   };
 
@@ -1003,6 +1000,11 @@
     CASE.blocks.forEach(function(b){
       body.appendChild(el("h3", null, t(b.h, lang)));
       (b.p||[]).forEach(function(par){ body.appendChild(el("p", null, t(par, lang))); });
+      if (b.list){
+        var ul = el("ul","case-list");
+        b.list.forEach(function(li){ ul.appendChild(el("li", null, t(li, lang))); });
+        body.appendChild(ul);
+      }
       if (b.grid){
         var g = el("div","case-grid");
         b.grid.forEach(function(x, i){
