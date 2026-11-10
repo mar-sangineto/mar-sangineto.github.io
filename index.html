@@ -230,72 +230,30 @@
   .card.featured{ border-color:var(--accent); background:linear-gradient(180deg, var(--accent-glow), var(--surface) 70%); }
   .card-kicker{ font-family:'IBM Plex Mono', monospace; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); }
 
+  a.card-clickable{ text-decoration:none; color:inherit; cursor:pointer; }
+  .card-kicker{ display:flex; justify-content:space-between; align-items:center; }
+  .card-arrow{ font-family:'IBM Plex Sans', sans-serif; font-size:1.1rem; color:var(--accent); transition:transform .15s; }
+  a.card-clickable:hover .card-arrow, a.case-block:hover .card-arrow{ transform:translateX(4px); }
+  a.case-block{
+    position:relative; display:grid; gap:2px; margin-top:12px; max-width:560px;
+    padding:14px 48px 14px 18px; border-radius:10px; text-decoration:none; color:inherit;
+    background:linear-gradient(180deg, var(--accent-glow), var(--surface)); border:1px solid var(--accent);
+    transition:transform .15s, box-shadow .15s;
+  }
+  a.case-block:hover{ transform:translateY(-2px); box-shadow:0 10px 24px var(--shadow); }
+  a.case-block:focus-visible, a.card-clickable:focus-visible{ outline:2px solid var(--accent); outline-offset:3px; }
+  a.case-block .card-arrow{ position:absolute; right:18px; top:50%; margin-top:-0.7rem; }
+  .case-block-title{ font-family:'IBM Plex Serif', Georgia, serif; font-weight:600; font-size:1.02rem; }
+  .case-block-sub{ font-size:0.88rem; color:var(--ink-soft); }
   /* inline case-study trigger inside timeline bullets */
   .case-btn{
+    text-decoration:none;
     display:inline-flex; align-items:center; gap:6px; margin-top:8px;
     font-family:'IBM Plex Mono', monospace; font-size:0.78rem; letter-spacing:0.03em;
     color:var(--accent); background:var(--accent-glow); border:1px solid transparent;
     padding:5px 12px; border-radius:999px; cursor:pointer; transition:border-color .15s;
   }
   .case-btn:hover, .case-btn:focus-visible{ border-color:var(--accent); outline:none; }
-
-  /* ---------- case-study dialog ---------- */
-  dialog.case{
-    width:min(900px, calc(100vw - 32px)); max-height:calc(100dvh - 48px);
-    padding:0; border:1px solid var(--line); border-radius:14px;
-    background:var(--bg); color:var(--ink); box-shadow:0 24px 64px var(--shadow);
-  }
-  dialog.case::backdrop{ background:rgba(6,12,16,0.55); -webkit-backdrop-filter:blur(3px); backdrop-filter:blur(3px); }
-  body.dialog-open{ overflow:hidden; }
-  .case-top{
-    position:sticky; top:0; z-index:2; display:flex; justify-content:space-between; align-items:flex-start; gap:16px;
-    padding:22px 28px 16px; background:color-mix(in srgb, var(--bg) 92%, transparent);
-    -webkit-backdrop-filter:blur(8px); backdrop-filter:blur(8px); border-bottom:1px solid var(--line);
-  }
-  .case-top h2{ font-family:'IBM Plex Serif', Georgia, serif; font-weight:600; font-size:1.5rem; line-height:1.2; margin:4px 0 0; text-wrap:balance; }
-  .case-close{
-    flex:none; background:var(--surface); border:1px solid var(--line); color:var(--ink);
-    width:36px; height:36px; border-radius:8px; font-size:1.1rem; cursor:pointer;
-  }
-  .case-close:hover{ border-color:var(--accent); }
-  .case-body{ padding:8px 28px 32px; }
-  .case-body h3{ font-family:'IBM Plex Mono', monospace; text-transform:uppercase; font-size:0.78rem; letter-spacing:0.08em; color:var(--accent); margin:30px 0 12px; }
-  .case-body p{ color:var(--ink-soft); margin:0 0 12px; max-width:72ch; }
-  .case-body p strong{ color:var(--ink); font-weight:600; }
-  .case-stats{ display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:12px; margin-top:20px; }
-  .case-stat{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
-  .case-stat b{ display:block; font-family:'IBM Plex Serif', Georgia, serif; font-size:1.55rem; color:var(--accent); line-height:1.15; }
-  .case-stat span{ font-size:0.84rem; color:var(--ink-soft); }
-  .case-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:12px; }
-  .case-box{ background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:14px 16px; }
-  .case-box b{ display:block; font-weight:600; margin-bottom:4px; font-size:0.95rem; }
-  .case-box b .mono{ color:var(--accent); font-weight:500; margin-right:6px; }
-  .case-box p{ font-size:0.88rem; margin:0; }
-  .case-steps{ display:flex; align-items:flex-end; gap:8px; margin-bottom:6px; }
-  .case-step{ flex:1; height:var(--h, auto); border-radius:10px; padding:12px; background:var(--surface-2); border:1px solid var(--line); font-size:0.82rem; color:var(--ink-soft); }
-  .case-step b{ display:block; color:var(--ink); font-size:0.92rem; margin-bottom:4px; }
-  .case-step:last-child{ border-color:var(--accent); background:var(--accent-glow); }
-  .case-fig{ margin:4px 0 0; }
-  .case-fig img{ width:100%; height:auto; display:block; border-radius:10px; border:1px solid var(--line); background:#1e1e1e; }
-  .case-fig figcaption{ font-size:0.8rem; color:var(--ink-faint); margin-top:8px; }
-  .case-list{ margin:0; padding-left:1.1em; color:var(--ink-soft); max-width:72ch; }
-  .case-list li{ margin-bottom:8px; }
-  .case-list li::marker{ color:var(--accent); }
-  .case-list strong{ color:var(--ink); font-weight:600; }
-  .case-two{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-  .case-two ul{ margin:0; padding-left:1.1em; color:var(--ink-soft); font-size:0.9rem; }
-  .case-two li{ margin-bottom:6px; }
-  .case-two li::marker{ color:var(--accent); }
-  .case-note{ font-size:0.84rem; color:var(--ink-faint); border-left:2px solid var(--accent); padding-left:12px; margin-top:18px; }
-  .case-body > p + .case-note{ margin-top:8px; }
-  @media (max-width:680px){
-    .case-top{ padding:16px 18px 12px; }
-    .case-top h2{ font-size:1.2rem; }
-    .case-body{ padding:4px 18px 24px; }
-    .case-steps{ flex-direction:column; align-items:stretch; }
-    .case-step{ height:auto; }
-    .case-two{ grid-template-columns:1fr; }
-  }
 
   /* experience list */
   .exp-item{ display:grid; grid-template-columns:180px 1fr; gap:20px; padding:20px 0; border-top:1px solid var(--line); }
@@ -402,6 +360,7 @@
       <a href="#about" data-i18n="nav.about"></a>
       <a href="#research" data-i18n="nav.research"></a>
       <a href="#projects" data-i18n="nav.projects"></a>
+      <a href="case-studies.html" data-i18n="nav.cases"></a>
       <a href="#experience" data-i18n="nav.experience"></a>
       <a href="#skills" data-i18n="nav.skills"></a>
       <a href="#awards" data-i18n="nav.awards"></a>
@@ -484,17 +443,6 @@
   </section>
 </main>
 
-<dialog class="case" id="caseDialog" aria-labelledby="caseTitle">
-  <div class="case-top">
-    <div>
-      <p class="eyebrow" style="margin:0;" id="caseEyebrow"></p>
-      <h2 id="caseTitle"></h2>
-    </div>
-    <button class="case-close" id="caseClose" type="button">✕</button>
-  </div>
-  <div class="case-body" id="caseBody"></div>
-</dialog>
-
 <footer id="contact">
   <p class="eyebrow" style="justify-content:center;" data-i18n="footer.cta"></p>
   <div class="contact-row">
@@ -512,7 +460,7 @@
   var I18N = {
     en: {
       brand: 'Marina <span class="dot">Sangineto Jucá</span>',
-      "nav.about":"About", "nav.research":"Research", "nav.projects":"Projects",
+      "nav.about":"About", "nav.research":"Research", "nav.projects":"Projects", "nav.cases":"Case Studies",
       "nav.experience":"Experience", "nav.skills":"Skills", "nav.awards":"Awards", "nav.contact":"Contact",
       "hero.eyebrow":"Electronics & Computer Engineering · AI & Data Science",
       "hero.lede":"Engineering student at <em>UFRJ</em> completing an international Master's in AI & Data Science at <em>Sorbonne Université</em>, with research experience in Particle Physics at <em>CERN/ATLAS</em> — Deep Learning, Generative AI, Quantum Computing, FPGA hardware and cybersecurity.",
@@ -532,7 +480,7 @@
     },
     pt: {
       brand: 'Marina <span class="dot">Sangineto Jucá</span>',
-      "nav.about":"Sobre", "nav.research":"Pesquisa", "nav.projects":"Projetos",
+      "nav.about":"Sobre", "nav.research":"Pesquisa", "nav.projects":"Projetos", "nav.cases":"Estudos de Caso",
       "nav.experience":"Experiência", "nav.skills":"Competências", "nav.awards":"Premiações", "nav.contact":"Contato",
       "hero.eyebrow":"Engenharia Eletrônica e de Computação · IA & Ciência de Dados",
       "hero.lede":"Estudante de engenharia na <em>UFRJ</em>, concluindo um mestrado internacional em IA e Ciência de Dados na <em>Sorbonne Université</em>, com experiência em pesquisa de Física de Partículas no <em>CERN/ATLAS</em> — Deep Learning, IA Generativa, Computação Quântica, hardware FPGA e cibersegurança.",
@@ -597,7 +545,7 @@
       date:{en:"Since Oct. 2024", pt:"Desde Out. 2024"},
       loc:{en:"Paris, France", pt:"Paris, França"},
       bullets:[
-        {en:"Fast-simulation tool using advanced Deep Learning and Generative AI for Beyond-the-Standard-Model Physics; the generative model reached adversarial equilibrium with the discriminator (AUC ≈ 0.5), producing synthetic samples nearly indistinguishable from real data.", pt:"Ferramenta de simulação rápida com Deep Learning avançado e IA generativa para pesquisa em Física Além do Modelo Padrão; o modelo gerador atingiu equilíbrio adversarial com o discriminador (AUC ≈ 0.5), indicando amostras sintéticas praticamente indistinguíveis das reais."},
+        {en:"Fast-simulation tool using advanced Deep Learning and Generative AI (CaloDREAM++, a flow-matching Vision Transformer) for Beyond-the-Standard-Model Physics; in the classifier test the energy model reached AUC ≈ 0.5 in every configuration, meaning generated showers are nearly indistinguishable from full simulation.", pt:"Ferramenta de simulação rápida com Deep Learning avançado e IA generativa (CaloDREAM++, um Vision Transformer de flow matching) para pesquisa em Física Além do Modelo Padrão; no teste com classificador, o modelo de energia atingiu AUC ≈ 0.5 em todas as configurações, ou seja, chuveiros gerados praticamente indistinguíveis da simulação completa."},
         {en:"Built data tooling (root2h5), HTCondor cluster job-management scripts (HTCondorScripts), and adapted a Vision Transformer for High-Energy Physics (vit4hep).", pt:"Ferramentas de manipulação e conversão de dados (root2h5), scripts de gestão de jobs em cluster HTCondor (HTCondorScripts), e adaptação de um Vision Transformer para Física de Altas Energias (vit4hep)."},
         {en:"In the project's final month, developed custom AI-agent methodology (Claude) to automate job management and the development workflow.", pt:"No último mês do projeto, metodologia com agentes de IA customizados (Claude) para automação da gestão de jobs e do fluxo de desenvolvimento."}
       ],
@@ -655,7 +603,7 @@
   var PROJECTS = [
     {
       featured:true,
-      caseStudy:true,
+      caseStudy:"agents",
       title:{en:"Agent-Assisted Research Workflow", pt:"Fluxo de Pesquisa com Agentes de IA"},
       date:{en:"Aug. 2026", pt:"Ago. 2026"},
       tags:["Claude Code","Multi-agent","Python","HTCondor"],
@@ -785,51 +733,6 @@
     {name:{en:"Photography", pt:"Fotografia"}, detail:{en:"Awarded in contest", pt:"Premiada em concurso"}}
   ];
 
-  // ---------- case study: agent-assisted research workflow ----------
-  var CASE = {
-    eyebrow:{en:"Case study · LPNHE / ATLAS – CERN", pt:"Estudo de caso · LPNHE / ATLAS – CERN"},
-    title:{en:"Exploring AI agents in ML research", pt:"Explorando agentes de IA em pesquisa de ML"},
-    blocks:[
-      {h:{en:"Context", pt:"Contexto"}, p:[
-        {en:"Comparing theory with LHC data requires millions of simulated events, and the detector-simulation stages are the most expensive part of that chain. My internship trained a generative model (<strong>CaloDREAM++</strong>, a flow-matching Vision Transformer) as a fast-simulation replacement inside <strong>Lorenzetti</strong>, an open calorimeter-simulation framework. That meant dozens of ML experiments running in parallel on a shared GPU cluster.", pt:"Comparar teoria com os dados do LHC exige milhões de eventos simulados, e as etapas de simulação do detector são a parte mais cara dessa cadeia. No estágio, treinei um modelo generativo (<strong>CaloDREAM++</strong>, um Vision Transformer de flow matching) como simulação rápida dentro do <strong>Lorenzetti</strong>, um framework aberto de simulação de calorímetros. Isso significava dezenas de experimentos de ML rodando em paralelo num cluster de GPUs compartilhado."}
-      ]},
-      {h:{en:"Where agents were explored", pt:"Onde explorei agentes"}, p:[
-        {en:"In the final month of the internship I ran an exercise: exploring how AI agents could optimize the research workflow itself. I applied them where the work was repetitive, well specified and verifiable: <strong>allocating jobs</strong> on the cluster (which could take 2 to 3 days per job, often on worse machines), <strong>fixing and refactoring a large codebase</strong>, and <strong>drafting new code</strong> to review instead of starting from scratch.", pt:"No último mês do estágio fiz um exercício: explorar como agentes de IA podiam otimizar o próprio fluxo de pesquisa. Apliquei agentes onde o trabalho era repetitivo, bem especificado e verificável: <strong>alocação de jobs</strong> no cluster (que podia levar 2 a 3 dias por job, muitas vezes em máquinas piores), <strong>correção e refatoração de um código grande</strong> e <strong>primeiras versões de código novo</strong> para revisar em vez de partir do zero."}
-      ]},
-      {h:{en:"What the agents did", pt:"O que os agentes fizeram"}, grid:[
-        {t:{en:"Job submission & allocation", pt:"Submissão e alocação"}, d:{en:"Watched free machines and placed the heaviest tests on the best GPUs, including overnight, following my submission conventions.", pt:"Monitoravam máquinas livres e alocavam os testes mais pesados nas melhores GPUs, inclusive de madrugada, seguindo minhas convenções de submissão."}},
-        {t:{en:"Contingency-planned tests", pt:"Testes com contingência"}, d:{en:"I wrote the failure hypotheses and what to do in each case (“if X, do Y”); agents launched the test campaigns and followed the plan per outcome.", pt:"Eu escrevia as hipóteses de falha e o que fazer em cada caso (“se X, faça Y”); os agentes lançavam as campanhas de teste e seguiam o plano conforme o resultado."}},
-        {t:{en:"Large-codebase debugging", pt:"Depuração em código grande"}, d:{en:"Searching for hardcoded values, wrong references and suspicious logic across the codebase. Every fix on its own branch, validated before merging.", pt:"Busca de valores fixos, referências erradas e lógica suspeita pela base. Cada correção em sua própria branch, validada antes do merge."}},
-        {t:{en:"New tooling", pt:"Novas ferramentas"}, d:{en:"Reviewable first drafts instead of blank files: a simulation-status monitor, an energy-spectrum sampler and the fast-simulation integration.", pt:"Primeiras versões para revisar em vez de arquivos em branco: um monitor de status da simulação, um gerador de espectros de energia e a integração da simulação rápida."}},
-        {t:{en:"Structured notes", pt:"Notas estruturadas"}, d:{en:"Every session and submission recorded automatically in a format I defined (see project memory below).", pt:"Cada sessão e submissão registrada automaticamente num formato que eu defini (veja a memória do projeto abaixo)."}},
-        {t:{en:"Parallel workstreams", pt:"Frentes em paralelo"}, d:{en:"Several agents on independent tracks, later coordinator agents supervising groups of agents, without slowing the main project.", pt:"Vários agentes em frentes independentes, depois agentes coordenadores supervisionando grupos de agentes, sem atrasar o projeto principal."}}
-      ]},
-      {h:{en:"How my use evolved", pt:"Como meu uso evoluiu"}, steps:[
-        {t:"Manual", d:{en:"Approved each edit to learn how the agent behaved", pt:"Aprovava cada alteração para entender o agente"}},
-        {t:"Plan", d:{en:"Reviewed the plan before execution", pt:"Revisava o plano antes de executar"}},
-        {t:"Auto", d:{en:"Agent ran alone and called me at defined checkpoints", pt:"Agente seguia sozinho e me chamava em pontos definidos"}},
-        {t:{en:"Multi-agent", pt:"Multi-agentes"}, d:{en:"Parallel agents on independent tracks", pt:"Agentes em paralelo em frentes independentes"}},
-        {t:{en:"Hierarchy", pt:"Hierarquia"}, d:{en:"Agents coordinating groups of agents", pt:"Agentes coordenando grupos de agentes"}}
-      ]},
-      {h:{en:"Project memory", pt:"Memória do projeto"}, p:[
-        {en:"Agents wrote to an Obsidian vault structured by me (85 notes, 22 registered bugs):", pt:"Os agentes escreviam num vault do Obsidian estruturado por mim (85 notas, 22 bugs registrados):"}
-      ], list:[
-        {en:"<strong>Agent log:</strong> one note per session with goal, actions, results, decisions and next steps", pt:"<strong>Log dos agentes:</strong> uma nota por sessão com objetivo, ações, resultados, decisões e próximos passos"},
-        {en:"<strong>Projects:</strong> current state of each track, updated in place", pt:"<strong>Projetos:</strong> estado atual de cada frente, atualizado no lugar"},
-        {en:"<strong>Diagnostics:</strong> full investigations with root cause and evidence", pt:"<strong>Diagnósticos:</strong> investigações completas com causa e evidências"},
-        {en:"<strong>Bug registry:</strong> symptom → root cause → fix → validation", pt:"<strong>Registro de bugs:</strong> sintoma → causa → correção → validação"},
-        {en:"<strong>Working agreements:</strong> rules the agent read before acting", pt:"<strong>Acordos de trabalho:</strong> regras que o agente lia antes de agir"},
-        {en:"<strong>Purpose:</strong> development backlog, context for each new agent session and my own reference", pt:"<strong>Finalidade:</strong> backlog do desenvolvimento, contexto para cada nova sessão de agente e consulta própria"}
-      ]},
-      {h:{en:"Results", pt:"Resultados"}, stats:[
-        {b:"AUC ≈ 0.50", s:{en:"energy model, every configuration up to 1 TeV and full detector (0.5 = indistinguishable from full simulation)", pt:"modelo de energia, todas as configurações até 1 TeV e detector completo (0,5 = indistinguível da simulação completa)"}},
-        {b:{en:"< 1 day", pt:"< 1 dia"}, s:{en:"to land the right GPU, down from 2 to 3 days", pt:"para conseguir a GPU certa, antes 2 a 3 dias"}},
-        {b:"3", s:{en:"new tools shipped alongside the main project", pt:"novas ferramentas entregues junto ao projeto principal"}},
-        {b:"22", s:{en:"bugs registered and tracked to root cause", pt:"bugs registrados e rastreados até a causa"}}
-      ]}
-    ]
-  };
-
   // ---------- helpers ----------
   function t(field, lang){
     if (field == null) return "";
@@ -889,9 +792,13 @@
         node.appendChild(ul);
       }
       if (item.caseStudy){
-        var cb = el("button","case-btn", state.lang === "pt" ? "Ver estudo de caso: agentes de IA →" : "Read the AI-agents case study →");
-        cb.type = "button";
-        cb.addEventListener("click", openCase);
+        var pt = state.lang === "pt";
+        var cb = el("a","case-block",
+          '<span class="card-kicker">' + (pt ? "Estudo de caso" : "Case study") + '</span>' +
+          '<span class="case-block-title">' + (pt ? "Explorando agentes de IA em pesquisa de ML" : "Exploring AI agents in ML research") + '</span>' +
+          '<span class="case-block-sub">' + (pt ? "Como usei agentes para otimizar o fluxo desta pesquisa" : "How I used agents to optimize this research workflow") + '</span>' +
+          '<span class="card-arrow" aria-hidden="true">→</span>');
+        cb.href = "case-studies.html#agents";
         node.appendChild(cb);
       }
       wrap.appendChild(node);
@@ -902,8 +809,9 @@
     var wrap = document.getElementById("projectsGrid");
     wrap.innerHTML = "";
     PROJECTS.forEach(function(p){
-      var card = el("article","card reveal" + (p.featured ? " featured" : ""));
-      if (p.featured) card.appendChild(el("div","card-kicker", state.lang === "pt" ? "Estudo de caso" : "Case study"));
+      var card = el(p.caseStudy ? "a" : "article","card reveal" + (p.featured ? " featured" : ""));
+      if (p.caseStudy){ card.href = "case-studies.html#" + p.caseStudy; card.classList.add("card-clickable"); }
+      if (p.featured) card.appendChild(el("div","card-kicker", (state.lang === "pt" ? "Estudo de caso" : "Case study") + '<span class="card-arrow" aria-hidden="true">→</span>'));
       var head = el("div","card-head");
       head.appendChild(el("div","card-title", t(p.title, state.lang)));
       head.appendChild(el("div","card-date mono", t(p.date, state.lang)));
@@ -912,12 +820,7 @@
       var tags = el("div","card-tags");
       (p.tags||[]).forEach(function(tag){ tags.appendChild(el("span","chip", tag)); });
       card.appendChild(tags);
-      if (p.caseStudy){
-        var cbtn = el("button","card-link", state.lang === "pt" ? "Ler o estudo de caso →" : "Read the case study →");
-        cbtn.type = "button";
-        cbtn.addEventListener("click", openCase);
-        card.appendChild(cbtn);
-      } else {
+      if (!p.caseStudy){
         var link = el("a","card-link", (state.lang === "pt" ? "Ver no GitHub →" : "View on GitHub →"));
         link.href = "https://github.com/mar-sangineto";
         link.target = "_blank"; link.rel = "noopener";
@@ -990,101 +893,6 @@
     });
   }
 
-  function renderCase(){
-    var lang = state.lang;
-    document.getElementById("caseEyebrow").textContent = t(CASE.eyebrow, lang);
-    document.getElementById("caseTitle").textContent = t(CASE.title, lang);
-    document.getElementById("caseClose").setAttribute("aria-label", lang === "pt" ? "Fechar" : "Close");
-    var body = document.getElementById("caseBody");
-    body.innerHTML = "";
-    CASE.blocks.forEach(function(b){
-      body.appendChild(el("h3", null, t(b.h, lang)));
-      (b.p||[]).forEach(function(par){ body.appendChild(el("p", null, t(par, lang))); });
-      if (b.list){
-        var ul = el("ul","case-list");
-        b.list.forEach(function(li){ ul.appendChild(el("li", null, t(li, lang))); });
-        body.appendChild(ul);
-      }
-      if (b.grid){
-        var g = el("div","case-grid");
-        b.grid.forEach(function(x, i){
-          var box = el("div","case-box");
-          box.appendChild(el("b", null, '<span class="mono">0'+(i+1)+'</span>' + t(x.t, lang)));
-          box.appendChild(el("p", null, t(x.d, lang)));
-          g.appendChild(box);
-        });
-        body.appendChild(g);
-      }
-      if (b.steps){
-        var s = el("div","case-steps");
-        b.steps.forEach(function(x, i){
-          var st = el("div","case-step");
-          st.style.setProperty("--h", (122 + i*26) + "px");
-          st.appendChild(el("b", null, t(x.t, lang)));
-          st.appendChild(document.createTextNode(t(x.d, lang)));
-          s.appendChild(st);
-        });
-        body.appendChild(s);
-      }
-      if (b.fig){
-        var fig = el("figure","case-fig");
-        var img = document.createElement("img");
-        img.src = b.fig.src; img.alt = t(b.fig.alt, lang); img.loading = "lazy";
-        img.width = 1400; img.height = 830;
-        fig.appendChild(img);
-        fig.appendChild(el("figcaption", null, t(b.fig.cap, lang)));
-        body.appendChild(fig);
-      }
-      if (b.stats){
-        var sg = el("div","case-stats");
-        b.stats.forEach(function(x){
-          var c = el("div","case-stat");
-          c.appendChild(el("b", null, t(x.b, lang)));
-          c.appendChild(el("span", null, t(x.s, lang)));
-          sg.appendChild(c);
-        });
-        body.appendChild(sg);
-      }
-      if (b.two){
-        var tw = el("div","case-two");
-        b.two.forEach(function(col){
-          var box = el("div","case-box");
-          box.appendChild(el("b", null, t(col.t, lang)));
-          var ul = el("ul");
-          col.li.forEach(function(li){ ul.appendChild(el("li", null, t(li, lang))); });
-          box.appendChild(ul);
-          tw.appendChild(box);
-        });
-        body.appendChild(tw);
-      }
-      if (b.after) body.appendChild(el("p","case-note", t(b.after, lang)));
-    });
-  }
-
-  var caseDialog = document.getElementById("caseDialog");
-  function openCase(){
-    renderCase();
-    if (typeof caseDialog.showModal === "function") caseDialog.showModal();
-    else caseDialog.setAttribute("open", "");
-    document.body.classList.add("dialog-open");
-    caseDialog.scrollTop = 0;
-    try { history.replaceState(null, "", "#case-agents"); } catch(e){}
-  }
-  function closeCase(){
-    if (caseDialog.open){
-      if (typeof caseDialog.close === "function") caseDialog.close();
-      else caseDialog.removeAttribute("open");
-    }
-  }
-  caseDialog.addEventListener("close", function(){
-    document.body.classList.remove("dialog-open");
-    if (location.hash === "#case-agents"){
-      try { history.replaceState(null, "", location.pathname + location.search); } catch(e){}
-    }
-  });
-  document.getElementById("caseClose").addEventListener("click", closeCase);
-  caseDialog.addEventListener("click", function(e){ if (e.target === caseDialog) closeCase(); });
-
   function renderAll(){
     applyStaticI18n();
     renderTags();
@@ -1094,7 +902,6 @@
     renderExperience();
     renderSkills();
     renderAwards();
-    if (caseDialog.open) renderCase();
     observeReveals();
   }
 
@@ -1213,7 +1020,7 @@
 
   renderAll();
   initEmailButtons();
-  if (location.hash === "#case-agents") openCase();
+  if (location.hash === "#case-agents") location.replace("case-studies.html#agents");
 })();
 </script>
 
